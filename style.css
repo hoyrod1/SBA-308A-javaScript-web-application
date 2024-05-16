@@ -8,3 +8,19 @@
 body {
   background-color: #bdb76b;
 }
+
+.container {
+  width: 80vw;
+  height: 90vh;
+  margin: 30px auto;
+  background-color: beige;
+  border: 2px solid #373408;
+  border-radius: 5px;
+  box-shadow: 2px 12px 45px 5px black;
+}
+
+.container h1 {
+  text-align: center;
+  text-decoration: underline;
+  margin: 10px 0 0 0;
+}
