@@ -24,3 +24,20 @@ body {
   text-decoration: underline;
   margin: 10px 0 0 0;
 }
+
+.container h2 {
+  text-align: center;
+  text-decoration: underline;
+  margin: 10px 0 0 0;
+}
+
+#dogBreed {
+  display: block;
+  width: 230px;
+  margin: 10px auto;
+  padding: 8px;
+  color: brown;
+  font-size: large;
+  font-weight: bold;
+  border: 2px solid #373408;
+}
