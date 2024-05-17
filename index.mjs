@@ -8,10 +8,10 @@ export function dogCarousel(dogUrlImage, dogName, carouselContainer) {
   // Created element div for image carousel
   let imgDiv = document.createElement("div");
   // Set the class for imgDiv
-  imgDiv.className = "carousel-item active";
+  imgDiv.className = "carousel-item";
   // Created image element
   let imgElement = document.createElement("img");
-  imgElement.style.height = "500px";
+  imgElement.style.height = "650px";
   // Set the class for img element
   imgElement.className = "d-block w-100";
   // Set image source attribute for  img element

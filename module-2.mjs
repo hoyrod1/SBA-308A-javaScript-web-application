@@ -6,7 +6,7 @@ import * as dogCarousel from "./index.mjs";
 const dogSelector = document.getElementById("dogBreed");
 // Create Carousel item container
 const carouselInnerContainer = document.querySelector("#carouselExample");
-console.log(carouselInnerContainer);
+// console.log(carouselInnerContainer);
 /**
  *<div class="carousel-inner"></div>
  */
@@ -39,11 +39,27 @@ async function loadDog() {
   );
 
   apiDogData.then((dogDataObj) => {
+    let dogDataArrInfo = dogDataObj.data;
+    // console.log(dogDataArrInfo);
     const carouselContainer = document.createElement("div");
     carouselContainer.className = "carousel-inner";
     carouselInnerContainer.prepend(carouselContainer);
+    // Created element div for image carousel
+    let imgDiv = document.createElement("div");
+    // Set the class for imgDiv
+    imgDiv.className = "carousel-item active";
+    // Created image element
+    let imgElement = document.createElement("img");
+    imgElement.style.height = "650px";
+    // Set the class for img element
+    imgElement.className = "d-block w-100";
+    // Set image source attribute for  img element
+    imgElement.setAttribute("src", dogDataArrInfo[5].url);
 
-    let dogDataArrInfo = dogDataObj.data;
+    // Set image alt attribute for  img element
+    imgElement.setAttribute("alt", "Amazing dog breed");
+    imgDiv.appendChild(imgElement);
+    carouselContainer.appendChild(imgDiv);
 
     dogDataArrInfo.forEach((dogDataInfo) => {
       if (dogDataInfo.breeds[0]) {
