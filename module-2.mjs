@@ -62,16 +62,27 @@ async function loadDog() {
     carouselContainer.appendChild(imgDiv);
 
     dogDataArrInfo.forEach((dogDataInfo) => {
-      if (dogDataInfo.breeds[0]) {
+      // console.log(dogDataInfo.breeds[0]);
+      if (dogDataInfo.breeds[0] !== undefined) {
         dogCarousel.dogCarousel(
+          dogDataInfo.id,
           dogDataInfo.url,
           dogDataInfo.breeds[0].name,
+          dogDataInfo.breeds[0].bred_for,
+          dogDataInfo.breeds[0].temperament,
+          dogDataInfo.breeds[0].life_span,
+          dogDataInfo.breeds[0].height,
           carouselContainer
         );
       } else {
         dogCarousel.dogCarousel(
+          dogDataInfo.id,
           dogDataInfo.url,
-          "There is no name at this time",
+          "There name is unknown",
+          "This dog has no specific purpose for being bred",
+          "The tempermant if this dog is unknown but treat the doogy the way you want to be treated",
+          "Life span is unknown",
+          "Hieght is unknown",
           carouselContainer
         );
       }
