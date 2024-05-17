@@ -7,9 +7,54 @@ const apiDogKey =
 axios.defaults.baseURL = "https://api.thedogapi.com/v1";
 axios.defaults.headers.common["x-api-key"] = apiDogKey;
 //======================================================================================//
-
+// Create Carousel item container
+const carouselInnerContainer = document.querySelector("#carouselExample");
+//======================================================================================//
 export async function dogApi() {
   const dogsData = await axios("/breeds");
+  // console.log(dogsData.data[0]);
+
+  const carouselContainer = document.createElement("div");
+  carouselContainer.className = "carousel-inner";
+  carouselInnerContainer.prepend(carouselContainer);
+
+  // Created element div for image carousel
+  let imgDiv = document.createElement("div");
+  // Set the class for imgDiv
+  imgDiv.className = "carousel-item active";
+  // Created image element
+  let imgElement = document.createElement("img");
+  imgElement.style.height = "650px";
+  // Set the class for img element
+  imgElement.className = "d-block w-100";
+  // Set image source attribute for  img element
+  imgElement.setAttribute("src", dogsData.data[5].image.url);
+
+  // Set image alt attribute for  img element
+  imgElement.setAttribute("alt", "Amazing dog breed");
+  imgDiv.appendChild(imgElement);
+  carouselContainer.appendChild(imgDiv);
+  //-----------------------------------------------------------------------------------//
+  const dogsDataArray = dogsData.data;
+  dogsDataArray.forEach((dogData) => {
+    // console.log(dogData);
+    // Created element div for image carousel
+    let imgDiv = document.createElement("div");
+    // Set the class for imgDiv
+    imgDiv.className = "carousel-item";
+    // Created image element
+    let imgElement = document.createElement("img");
+    imgElement.style.height = "650px";
+    // Set the class for img element
+    imgElement.className = "d-block w-100";
+    // Set image source attribute for  img element
+    imgElement.setAttribute("src", dogData.image.url);
+
+    // Set image alt attribute for  img element
+    imgElement.setAttribute("alt", dogData.name);
+    imgDiv.appendChild(imgElement);
+    carouselContainer.appendChild(imgDiv);
+  });
 
   return dogsData;
 }

@@ -2,8 +2,8 @@ console.log(
   "==================================== index.mjs ===================================="
 );
 //======================================================================================//
-const carouselDiv = document.querySelector(".carousel-inner");
-const carouselDivContainer = document.querySelector("#carouselExample");
+// const carouselDiv = document.querySelector(".carousel-inner");
+// const carouselDivContainer = document.querySelector("#carouselExample");
 // console.log(carouselDivContainer);
 //======================================================================================//
 export function dogCarousel(
@@ -34,7 +34,7 @@ export function dogCarousel(
   // Appending imgDiv(div) to carouselDiv(div)
   carouselContainer.appendChild(imgDiv);
   // console.log(imgDiv);
-  dogDescription(id, dogName, bred_for, tempermant, life_span, height);
+  // dogDescription(id, dogName, bred_for, tempermant, life_span, height);
 }
 
 export function dogDescription(
@@ -45,22 +45,44 @@ export function dogDescription(
   life_span,
   height
 ) {
+  const carouselDiv = document.querySelector(".carousel-inner");
   const dogDescriptiondDiv = document.createElement("div");
-  const dogDescriptiondPreTag1 = document.createElement("hr");
-  const dogDescriptiondPreTag2 = document.createElement("nr");
+  const dogDescriptiondHrTag1 = document.createElement("hr");
+  const dogDescriptiondHrTag2 = document.createElement("nr");
   dogDescriptiondDiv.style.width = "80%";
+  dogDescriptiondDiv.style.margin = "5px auto";
+  dogDescriptiondDiv.prepend(dogDescriptiondHrTag1);
   const dogH1 = document.createElement("h1");
   dogH1.style.textAlign = "center";
   dogH1.textContent = `${dogName}`;
   dogDescriptiondDiv.appendChild(dogH1);
   const dogH2 = document.createElement("h2");
   dogH2.style.textAlign = "center";
-  dogH2.textContent = `${id}`;
+  dogH2.textContent = ` Dog id: ${id}`;
   dogDescriptiondDiv.appendChild(dogH2);
-
-  carouselDivContainer.appendChild(dogDescriptiondDiv);
+  const dogH4 = document.createElement("h4");
+  dogH4.style.textAlign = "left";
+  dogH4.textContent = "Additional Info below:";
+  dogDescriptiondDiv.appendChild(dogH4);
+  const dogP1 = document.createElement("p");
+  dogP1.style.textAlign = "left";
+  dogP1.textContent = `- ${bred_for}`;
+  dogDescriptiondDiv.appendChild(dogP1);
+  const dogP2 = document.createElement("p");
+  dogP2.style.textAlign = "left";
+  dogP2.textContent = `- ${tempermant}`;
+  dogDescriptiondDiv.appendChild(dogP2);
+  const dogP3 = document.createElement("p");
+  dogP3.style.textAlign = "left";
+  dogP3.textContent = `- ${life_span}`;
+  dogDescriptiondDiv.appendChild(dogP3);
+  const dogP4 = document.createElement("p");
+  dogP4.style.textAlign = "left";
+  dogP4.textContent = `- ${height}`;
+  dogDescriptiondDiv.appendChild(dogP4);
+  // carouselContainer.appendChild(dogDescriptiondDiv);
   // console.log(id);
-  console.log(dogName);
+  // console.log(dogName);
   // console.log(bred_for);
   // console.log(tempermant);
   // console.log(life_span);

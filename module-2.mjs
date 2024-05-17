@@ -44,6 +44,7 @@ async function loadDog() {
     const carouselContainer = document.createElement("div");
     carouselContainer.className = "carousel-inner";
     carouselInnerContainer.prepend(carouselContainer);
+
     // Created element div for image carousel
     let imgDiv = document.createElement("div");
     // Set the class for imgDiv
