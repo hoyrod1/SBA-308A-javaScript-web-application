@@ -10,5 +10,6 @@ axios.defaults.headers.common["x-api-key"] = apiDogKey;
 
 export async function dogApi() {
   const dogsData = await axios("/breeds");
+
   return dogsData;
 }
