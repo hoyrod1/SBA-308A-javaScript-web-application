@@ -11,7 +11,7 @@ axios.defaults.headers.common["x-api-key"] = apiDogKey;
 const carouselInnerContainer = document.querySelector("#carouselExample");
 //======================================================================================//
 export async function dogApi() {
-  const dogsData = await axios("/breeds");
+  const dogsData = await axios.get("/breeds");
   // console.log(dogsData);
 
   const carouselContainer = document.createElement("div");

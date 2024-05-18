@@ -48,7 +48,8 @@ async function loadSingleDogImage(e) {
   if (dogDescDiv !== null) {
     dogDescDiv.remove();
   }
-  // console.log(dogsImageData.data.breeds[0]);
+  // console.log(dogsImageData.data.breeds);
+  if (dogsImageData.data.breeds === undefined) return;
   let individualDogData = dogsImageData.data.breeds[0];
   const dogDescriptiondDiv = document.createElement("div");
   dogDescriptiondDiv.className = "dog-description";
@@ -88,6 +89,7 @@ async function loadSingleDogImage(e) {
   dogDescriptiondDiv.appendChild(dogP2);
   dogDescriptiondDiv.appendChild(dogP3);
   dogDescriptiondDiv.appendChild(dogP4);
+  //================= BUTTON IS CREATED TO DECIDE IF YOU LIKE OR DISLIKE THE DOG =================//
   const likeButton1 = document.createElement("buton");
   likeButton1.className = "button1";
   likeButton1.textContent = "Click to like";
@@ -105,11 +107,13 @@ async function loadSingleDogImage(e) {
   dogDescriptiondDiv.appendChild(likeButton1);
   dogDescriptiondDiv.appendChild(likeButton2);
   body.appendChild(dogDescriptiondDiv);
+  //-----------------------------------------------------------------------------------------------//
+  //==================== CACHING BUTTON1 AND BUTTON2 FOR THE LIKE AND DISLIKE =====================//
   const button1 = document.querySelector(".button1");
-  button1.addEventListener("click", dogLikeVote);
   const button2 = document.querySelector(".button2");
-  button2.addEventListener("click", dogDisLikeVote);
-
+  //======== ATTACHED EVENT LISTENER ON BUTTON1 THAT WILL LISTEN IF LIKE BUTTON IS CLICKED ========//
+  button1.addEventListener("click", dogLikeVote);
+  //------------------------- FUNCTION TO POST A LIKE TO THE SELECTED DOG -------------------------//
   async function dogLikeVote(e) {
     try {
       const likeObj = {
@@ -123,7 +127,10 @@ async function loadSingleDogImage(e) {
       console.log(error.response);
     }
   }
-
+  //-----------------------------------------------------------------------------------------------//
+  //======= ATTACHED EVENT LISTENER ON BUTTON2 THAT WILL LISTEN IF DISLIKE BUTTON IS CLICKED ======//
+  button2.addEventListener("click", dogDisLikeVote);
+  //------------------------ FUNCTION TO POST A DISLIKE TO THE SELECTED DOG -----------------------//
   async function dogDisLikeVote(e) {
     try {
       const disLikeObj = {
@@ -137,3 +144,4 @@ async function loadSingleDogImage(e) {
     }
   }
 }
+//-----------------------------------------------------------------------------------------------//

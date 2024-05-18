@@ -55,10 +55,10 @@ async function loadDog() {
     // Set the class for img element
     imgElement.className = "d-block w-100";
     // Set image source attribute for  img element
-    imgElement.setAttribute("src", dogDataArrInfo[0].url);
+    imgElement.setAttribute("src", dogDataArrInfo[5].url);
 
     // Set image alt attribute for  img element
-    imgElement.setAttribute("alt", dogDataArrInfo[0].id);
+    imgElement.setAttribute("alt", dogDataArrInfo[5].id);
     imgDiv.appendChild(imgElement);
     carouselContainer.appendChild(imgDiv);
 

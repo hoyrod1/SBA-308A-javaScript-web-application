@@ -37,6 +37,11 @@ body {
   font-weight: bold;
   border: 2px solid #373408;
 }
+#side-note {
+  text-align: center;
+  color: red;
+  margin: 5px auto;
+}
 
 hr {
   color: #bdb76b;
