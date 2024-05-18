@@ -6,10 +6,6 @@ import * as dogCarousel from "./index.mjs";
 const dogSelector = document.getElementById("dogBreed");
 // Create Carousel item container
 const carouselInnerContainer = document.querySelector("#carouselExample");
-// console.log(carouselInnerContainer);
-/**
- *<div class="carousel-inner"></div>
- */
 //======================================================================================//
 console.log(
   "==================================== module.mjs 2 ===================================="
@@ -17,10 +13,8 @@ console.log(
 //======================================================================================//
 // Calling the dogApi async function
 dogBreeds.dogApi().then((dogData) => {
-  // console.log(dogData);
   const dogDataArray = dogData.data;
   dogDataArray.forEach((dogElement) => {
-    // console.log(dogElement);
     let dogOptions = document.createElement("option");
     dogOptions.setAttribute("value", `${dogElement.breed_group}`);
     dogOptions.textContent = `${dogElement.name}`;
@@ -40,12 +34,13 @@ async function loadDog() {
 
   apiDogData.then((dogDataObj) => {
     let dogDataArrInfo = dogDataObj.data;
-    // console.log(dogDataArrInfo[0]);
+    //--------------------- INITIALIZING THE FIRST DOG IMAGE ---------------------//
+    // CREATING THE CAROUSEL CONTAINER DIV WITH THE CLASS NAME carousel-inner
     const carouselContainer = document.createElement("div");
     carouselContainer.className = "carousel-inner";
     carouselInnerContainer.prepend(carouselContainer);
-
-    // Created element div for image carousel
+    // CREATING THE INITIAL NESTED DIV CLASS NAME WITH carousel-item active
+    // THE FOLLOWING POPULATED DIV CLASS NAME WILL ONLY HAVE carousel-item
     let imgDiv = document.createElement("div");
     // Set the class for imgDiv
     imgDiv.className = "carousel-item active";
@@ -56,14 +51,17 @@ async function loadDog() {
     imgElement.className = "d-block w-100";
     // Set image source attribute for  img element
     imgElement.setAttribute("src", dogDataArrInfo[5].url);
-
     // Set image alt attribute for  img element
     imgElement.setAttribute("alt", dogDataArrInfo[5].id);
     imgDiv.appendChild(imgElement);
     carouselContainer.appendChild(imgDiv);
-
+    //-----------------------------------------------------------------------------//
+    // THE foreach LOOPS THROUGH THE ARRAY OF OBJECT FROM THE SELECTED BREED OF DOGS
     dogDataArrInfo.forEach((dogDataInfo) => {
-      // console.log(dogDataInfo);
+      // THIS CHECKS IF THE breeds ARRAY HAS AN OBJECT
+      // WITH name, bred_for, temperament, life_span and height
+      // IF THEY'RE NOT STRING PLACEHOLDER VAULES ARE SET
+      // THE carouselContainer IS PASSED IN AS AN ARGUMENT
       if (dogDataInfo.breeds[0] !== undefined) {
         dogCarousel.dogCarousel(
           dogDataInfo.id,

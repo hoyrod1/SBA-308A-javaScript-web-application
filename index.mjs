@@ -32,24 +32,26 @@ export function dogCarousel(
   imgDiv.appendChild(imgElement);
   // Appending imgDiv(div) to carouselDiv(div)
   carouselContainer.appendChild(imgDiv);
-  // console.log(imgDiv);
-  // dogDescription(id, dogName, bred_for, tempermant, life_span, height);
 }
-carouselDivContainer.addEventListener("click", loadSingleDogImage);
-
-async function loadSingleDogImage(e) {
+//-----------------------------------------------------------------------------------------------//
+//========== ATTACHED A CLICK EVENT LISTENER TO THE CONTAINER DISPLAYING THE DOG IMAGE ==========//
+carouselDivContainer.addEventListener("click", displayDogDescription);
+//------------------ THIS FUNCTION CREATES THE DOG DESCRIPTION IF THERE IS ONE ------------------//
+async function displayDogDescription(e) {
+  // CACHES THE DIV DISPLAYING THE DOG DESCRIPTION WHEN IT IS CREATED
   const dogDescDiv = document.querySelector(".dog-description");
-  // console.log(dogDescDiv);
+  // THE SELECTED DOGS IMAGE ID IS STORED IN THE ALT ATTRIBUTE AND CACHED TO dogID
   if (e.target.alt === undefined) return;
   let dogId = e.target.alt;
-  // console.log(dogId);
+  // FETCHING THE SELECTED DOGS INFORMATION
   const dogsImageData = await axios(`/images/${dogId}`);
-
+  // THIS REMOVES A DOG DESCRIPTION IF THERE IS ONE DISPLAYED
   if (dogDescDiv !== null) {
     dogDescDiv.remove();
   }
-  // console.log(dogsImageData.data.breeds);
+  // THIS CHECKS IF THE SELECTED DOG HAS A DESCRIPTION AND IF NOT THE FUCNTION IS RETURNED
   if (dogsImageData.data.breeds === undefined) return;
+  // THE breeds ARRAY IS CACHED SO THE DOGS DESCRIPTION CAN BE SET
   let individualDogData = dogsImageData.data.breeds[0];
   const dogDescriptiondDiv = document.createElement("div");
   dogDescriptiondDiv.className = "dog-description";
@@ -89,6 +91,7 @@ async function loadSingleDogImage(e) {
   dogDescriptiondDiv.appendChild(dogP2);
   dogDescriptiondDiv.appendChild(dogP3);
   dogDescriptiondDiv.appendChild(dogP4);
+  //----------------------------------------------------------------------------------------------//
   //================= BUTTON IS CREATED TO DECIDE IF YOU LIKE OR DISLIKE THE DOG =================//
   const likeButton1 = document.createElement("buton");
   likeButton1.className = "button1";
@@ -143,5 +146,5 @@ async function loadSingleDogImage(e) {
       console.log(error.response);
     }
   }
+  //-----------------------------------------------------------------------------------------------//
 }
-//-----------------------------------------------------------------------------------------------//
