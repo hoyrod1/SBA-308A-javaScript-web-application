@@ -19,13 +19,9 @@ body {
   box-shadow: 2px 12px 45px 5px black;
 }
 
-.container h1 {
-  text-align: center;
-  text-decoration: underline;
-  margin: 10px 0 0 0;
-}
-
-.container h2 {
+.container h1,
+.container h2,
+.container h3 {
   text-align: center;
   text-decoration: underline;
   margin: 10px 0 0 0;

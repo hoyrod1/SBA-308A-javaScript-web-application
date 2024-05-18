@@ -43,14 +43,12 @@ async function loadSingleDogImage(e) {
   if (e.target.alt === undefined) return;
   let dogId = e.target.alt;
   // console.log(dogId);
-  const dogsImageData = await axios(
-    `https://api.thedogapi.com/v1/images/${dogId}`
-  );
+  const dogsImageData = await axios(`/images/${dogId}`);
 
   if (dogDescDiv !== null) {
     dogDescDiv.remove();
   }
-  console.log(dogsImageData.data.breeds[0]);
+  // console.log(dogsImageData.data.breeds[0]);
   let individualDogData = dogsImageData.data.breeds[0];
   const dogDescriptiondDiv = document.createElement("div");
   dogDescriptiondDiv.className = "dog-description";
@@ -73,16 +71,16 @@ async function loadSingleDogImage(e) {
   dogH4.textContent = "Additional Info below:";
   const dogP1 = document.createElement("p");
   dogP1.style.textAlign = "left";
-  dogP1.textContent = `- ${individualDogData.temperament}`;
+  dogP1.textContent = `Temperament - ${individualDogData.temperament}`;
   const dogP2 = document.createElement("p");
   dogP2.style.textAlign = "left";
-  dogP2.textContent = `- ${individualDogData.bred_for}`;
+  dogP2.textContent = `Bred for - ${individualDogData.bred_for}`;
   const dogP3 = document.createElement("p");
   dogP3.style.textAlign = "left";
-  dogP3.textContent = `- ${individualDogData.life_span}`;
+  dogP3.textContent = `The life span - ${individualDogData.life_span}`;
   const dogP4 = document.createElement("p");
   dogP4.style.textAlign = "left";
-  dogP4.textContent = `- Imperial ${individualDogData.height.imperial} metric: ${individualDogData.height.metric}`;
+  dogP4.textContent = `Imperial - weight: ${individualDogData.height.imperial} | metric - weight: ${individualDogData.height.metric}`;
   dogDescriptiondDiv.appendChild(dogH1);
   dogDescriptiondDiv.appendChild(dogH2);
   dogDescriptiondDiv.appendChild(dogH4);
@@ -91,12 +89,14 @@ async function loadSingleDogImage(e) {
   dogDescriptiondDiv.appendChild(dogP3);
   dogDescriptiondDiv.appendChild(dogP4);
   const likeButton1 = document.createElement("buton");
+  likeButton1.className = "button1";
   likeButton1.textContent = "Click to like";
   likeButton1.style.background = "green";
   likeButton1.style.color = "white";
   likeButton1.style.margin = "10px";
   likeButton1.style.padding = "5px";
   const likeButton2 = document.createElement("buton");
+  likeButton2.className = "button2";
   likeButton2.textContent = "Click to dislike";
   likeButton2.style.background = "red";
   likeButton2.style.color = "white";
@@ -105,4 +105,35 @@ async function loadSingleDogImage(e) {
   dogDescriptiondDiv.appendChild(likeButton1);
   dogDescriptiondDiv.appendChild(likeButton2);
   body.appendChild(dogDescriptiondDiv);
+  const button1 = document.querySelector(".button1");
+  button1.addEventListener("click", dogLikeVote);
+  const button2 = document.querySelector(".button2");
+  button2.addEventListener("click", dogDisLikeVote);
+
+  async function dogLikeVote(e) {
+    try {
+      const likeObj = {
+        image_id: individualDogData.reference_image_id,
+        sub_id: "RodneyStCloud",
+        value: 1,
+      };
+      const dogLikeVote = await axios.post(`/votes`, likeObj);
+      console.log(dogLikeVote.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+
+  async function dogDisLikeVote(e) {
+    try {
+      const disLikeObj = {
+        image_id: individualDogData.reference_image_id,
+        sub_id: "RodneyStCloud",
+        value: -1,
+      };
+      const dogDisLikeVote = await axios.post(`/votes`, disLikeObj);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
 }
