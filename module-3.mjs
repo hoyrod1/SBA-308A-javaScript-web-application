@@ -12,7 +12,7 @@ const carouselInnerContainer = document.querySelector("#carouselExample");
 //======================================================================================//
 export async function dogApi() {
   const dogsData = await axios("/breeds");
-  // console.log(dogsData.data[0]);
+  // console.log(dogsData);
 
   const carouselContainer = document.createElement("div");
   carouselContainer.className = "carousel-inner";
@@ -31,7 +31,7 @@ export async function dogApi() {
   imgElement.setAttribute("src", dogsData.data[5].image.url);
 
   // Set image alt attribute for  img element
-  imgElement.setAttribute("alt", "Amazing dog breed");
+  imgElement.setAttribute("alt", dogsData.data[5].reference_image_id);
   imgDiv.appendChild(imgElement);
   carouselContainer.appendChild(imgDiv);
   //-----------------------------------------------------------------------------------//
@@ -51,7 +51,7 @@ export async function dogApi() {
     imgElement.setAttribute("src", dogData.image.url);
 
     // Set image alt attribute for  img element
-    imgElement.setAttribute("alt", dogData.name);
+    imgElement.setAttribute("alt", dogData.reference_image_id);
     imgDiv.appendChild(imgElement);
     carouselContainer.appendChild(imgDiv);
   });

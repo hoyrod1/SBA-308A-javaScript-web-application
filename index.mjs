@@ -2,9 +2,8 @@ console.log(
   "==================================== index.mjs ===================================="
 );
 //======================================================================================//
-// const carouselDiv = document.querySelector(".carousel-inner");
-// const carouselDivContainer = document.querySelector("#carouselExample");
-// console.log(carouselDivContainer);
+const body = document.body;
+const carouselDivContainer = document.querySelector("#carouselExample");
 //======================================================================================//
 export function dogCarousel(
   id,
@@ -28,7 +27,7 @@ export function dogCarousel(
   // Set image source attribute for  img element
   imgElement.setAttribute("src", dogUrlImage);
   // Set image alt attribute for  img element
-  imgElement.setAttribute("alt", dogName);
+  imgElement.setAttribute("alt", id);
   // Appending imgElement(img)element to imgDiv(div)
   imgDiv.appendChild(imgElement);
   // Appending imgDiv(div) to carouselDiv(div)
@@ -36,55 +35,74 @@ export function dogCarousel(
   // console.log(imgDiv);
   // dogDescription(id, dogName, bred_for, tempermant, life_span, height);
 }
+carouselDivContainer.addEventListener("click", loadSingleDogImage);
 
-export function dogDescription(
-  id,
-  dogName,
-  bred_for,
-  tempermant,
-  life_span,
-  height
-) {
-  const carouselDiv = document.querySelector(".carousel-inner");
+async function loadSingleDogImage(e) {
+  const dogDescDiv = document.querySelector(".dog-description");
+  // console.log(dogDescDiv);
+  if (e.target.alt === undefined) return;
+  let dogId = e.target.alt;
+  // console.log(dogId);
+  const dogsImageData = await axios(
+    `https://api.thedogapi.com/v1/images/${dogId}`
+  );
+
+  if (dogDescDiv !== null) {
+    dogDescDiv.remove();
+  }
+  console.log(dogsImageData.data.breeds[0]);
+  let individualDogData = dogsImageData.data.breeds[0];
   const dogDescriptiondDiv = document.createElement("div");
-  const dogDescriptiondHrTag1 = document.createElement("hr");
-  const dogDescriptiondHrTag2 = document.createElement("nr");
-  dogDescriptiondDiv.style.width = "80%";
+  dogDescriptiondDiv.className = "dog-description";
+  dogDescriptiondDiv.style.backgroundColor = "beige";
+  dogDescriptiondDiv.style.width = "50%";
+  dogDescriptiondDiv.style.padding = "10px";
   dogDescriptiondDiv.style.margin = "5px auto";
-  dogDescriptiondDiv.prepend(dogDescriptiondHrTag1);
+  dogDescriptiondDiv.style.border = "2px solid #373408";
+  dogDescriptiondDiv.style.boxShadow = "2px 12px 45px 5px black";
   const dogH1 = document.createElement("h1");
+  dogH1.style.textDecoration = "underline";
   dogH1.style.textAlign = "center";
-  dogH1.textContent = `${dogName}`;
-  dogDescriptiondDiv.appendChild(dogH1);
+  dogH1.textContent = `${individualDogData.name}`;
   const dogH2 = document.createElement("h2");
   dogH2.style.textAlign = "center";
-  dogH2.textContent = ` Dog id: ${id}`;
-  dogDescriptiondDiv.appendChild(dogH2);
+  dogH2.textContent = `id number: ${individualDogData.reference_image_id}`;
   const dogH4 = document.createElement("h4");
   dogH4.style.textAlign = "left";
+  dogH4.style.textDecoration = "underline";
   dogH4.textContent = "Additional Info below:";
-  dogDescriptiondDiv.appendChild(dogH4);
   const dogP1 = document.createElement("p");
   dogP1.style.textAlign = "left";
-  dogP1.textContent = `- ${bred_for}`;
-  dogDescriptiondDiv.appendChild(dogP1);
+  dogP1.textContent = `- ${individualDogData.temperament}`;
   const dogP2 = document.createElement("p");
   dogP2.style.textAlign = "left";
-  dogP2.textContent = `- ${tempermant}`;
-  dogDescriptiondDiv.appendChild(dogP2);
+  dogP2.textContent = `- ${individualDogData.bred_for}`;
   const dogP3 = document.createElement("p");
   dogP3.style.textAlign = "left";
-  dogP3.textContent = `- ${life_span}`;
-  dogDescriptiondDiv.appendChild(dogP3);
+  dogP3.textContent = `- ${individualDogData.life_span}`;
   const dogP4 = document.createElement("p");
   dogP4.style.textAlign = "left";
-  dogP4.textContent = `- ${height}`;
+  dogP4.textContent = `- Imperial ${individualDogData.height.imperial} metric: ${individualDogData.height.metric}`;
+  dogDescriptiondDiv.appendChild(dogH1);
+  dogDescriptiondDiv.appendChild(dogH2);
+  dogDescriptiondDiv.appendChild(dogH4);
+  dogDescriptiondDiv.appendChild(dogP1);
+  dogDescriptiondDiv.appendChild(dogP2);
+  dogDescriptiondDiv.appendChild(dogP3);
   dogDescriptiondDiv.appendChild(dogP4);
-  // carouselContainer.appendChild(dogDescriptiondDiv);
-  // console.log(id);
-  // console.log(dogName);
-  // console.log(bred_for);
-  // console.log(tempermant);
-  // console.log(life_span);
-  // console.log(height);
+  const likeButton1 = document.createElement("buton");
+  likeButton1.textContent = "Click to like";
+  likeButton1.style.background = "green";
+  likeButton1.style.color = "white";
+  likeButton1.style.margin = "10px";
+  likeButton1.style.padding = "5px";
+  const likeButton2 = document.createElement("buton");
+  likeButton2.textContent = "Click to dislike";
+  likeButton2.style.background = "red";
+  likeButton2.style.color = "white";
+  likeButton2.style.margin = "10px";
+  likeButton2.style.padding = "5px";
+  dogDescriptiondDiv.appendChild(likeButton1);
+  dogDescriptiondDiv.appendChild(likeButton2);
+  body.appendChild(dogDescriptiondDiv);
 }

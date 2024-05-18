@@ -40,7 +40,7 @@ async function loadDog() {
 
   apiDogData.then((dogDataObj) => {
     let dogDataArrInfo = dogDataObj.data;
-    // console.log(dogDataArrInfo);
+    // console.log(dogDataArrInfo[0]);
     const carouselContainer = document.createElement("div");
     carouselContainer.className = "carousel-inner";
     carouselInnerContainer.prepend(carouselContainer);
@@ -55,15 +55,15 @@ async function loadDog() {
     // Set the class for img element
     imgElement.className = "d-block w-100";
     // Set image source attribute for  img element
-    imgElement.setAttribute("src", dogDataArrInfo[5].url);
+    imgElement.setAttribute("src", dogDataArrInfo[0].url);
 
     // Set image alt attribute for  img element
-    imgElement.setAttribute("alt", "Amazing dog breed");
+    imgElement.setAttribute("alt", dogDataArrInfo[0].id);
     imgDiv.appendChild(imgElement);
     carouselContainer.appendChild(imgDiv);
 
     dogDataArrInfo.forEach((dogDataInfo) => {
-      // console.log(dogDataInfo.breeds[0]);
+      // console.log(dogDataInfo);
       if (dogDataInfo.breeds[0] !== undefined) {
         dogCarousel.dogCarousel(
           dogDataInfo.id,
